@@ -1,0 +1,194 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% documentclass and packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{atbegshi}           % workaround for newer PGF versions
+\documentclass{beamer}
+% https://sourceforge.net/tracker/index.php?func=detail&aid=1848912&group_id=92412&atid=600660
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[ngerman]{babel}
+\usepackage[babel,english=american,german=guillemets]{csquotes}	% french
+\usepackage{microtype}
+
+% colors for listings
+\definecolor{lightergray}{gray}{.95}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkerblue}{rgb}{0,0,0.4}
+\definecolor{darkergreen}{rgb}{0,0.4,0}
+\definecolor{darkerred}{rgb}{0.4,0,0}
+
+%\usepackage{listings}
+%\lstloadlanguages{HTML,XML}
+%\lstset{
+%    basicstyle=\ttfamily\small\mdseries,
+%    keywordstyle=\bfseries\color{darkblue},
+%    identifierstyle=,
+%    commentstyle=\color{darkgray},
+%    stringstyle=\itshape\color{darkred},
+%    frame=none,
+%    showstringspaces=false,
+%    tabsize=4,
+%    backgroundcolor=\color{lightergray},
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% preparations for beamer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useinnertheme{default}
+\useoutertheme{infolines}
+%\usecolortheme[rgb={0.28,0.37,0.52}]{structure}
+\usecolortheme[rgb={0.18,0.23,0.33}]{structure}
+%\usecolortheme{beaver}
+\usefonttheme{structurebold}
+
+%%% Ränder vergrößern für's Café Central
+\setbeamersize{text margin left=1.2cm}
+\setbeamersize{text margin right=1.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\pgfdeclareimage[height=0.75\paperheight]{strasse}{strasse}
+%\pgfdeclareimage[height=0.75\paperheight]{arbeitsraum}{arbeitsraum}
+%\pgfdeclareimage[height=0.75\paperheight]{lounge}{lounge}
+%\pgfdeclareimage[height=0.75\paperheight]{mate}{mate}
+%\pgfdeclareimage[height=0.75\paperheight]{regal}{regal}
+%\pgfdeclareimage[height=0.75\paperheight]{werkstatt}{werkstatt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% title, author, date
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{AVR101}
+\subtitle{Kapitel 1 -- Einführung}
+\author{Netz39 e.\,V.}
+\institute{\url{http://www.netz39.de/}}
+\date{2013-05-13}
+\subject{subj}
+\keywords{AVR, Workshop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Überblick}
+    \tableofcontents
+\end{frame}
+
+\section{Warum?}
+
+\subsection{Computer}
+
+\begin{frame}{Wie funktioniert ein Rechner}
+    \begin{itemize}
+        \item CPU
+        \item Register
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Assembler und C}
+    \begin{itemize}
+        \item hardwarenah
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\subsection{Mikrocontroller}
+
+\begin{frame}{Wo überall?}
+    \begin{itemize}
+        \item Industrie
+        \item Haushalt
+        \item \dots
+        \pause
+        \item Auto
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Was kann ich damit basteln?}
+    \begin{itemize}
+        \item Blinkezeugs
+        \item Quadrocopter
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\section{Mit welcher Hardware?}
+
+\subsection{AVR Mikrocontroller}
+
+\begin{frame}{ATtiny und ATmega}
+    add pictures here \dots
+\end{frame}
+
+\subsection{Schaltungen}
+
+\begin{frame}{Steckbrett}
+    Bild?
+\end{frame}
+
+\begin{frame}{Starterkit}
+    Bild und Link
+\end{frame}
+
+\begin{frame}{Developerkitz}
+    Mit Preisen!!
+\end{frame}
+
+\begin{frame}{Arduino}
+    Ja, das geht!
+\end{frame}
+
+\section{Mit welcher Software?}
+
+\begin{frame}{AVR Studio}
+    This is M\$ Windoof, who uses this shit?
+\end{frame}
+
+\begin{frame}{Linux}
+    \emph{CLI rulez!}
+\end{frame}
+
+\section{Kontakt}
+
+\begin{frame}{Kontakt}
+    \begin{center}
+        \begin{description}[Twitter/identi.ca]
+            \item[WWW] \url{http://www.netz39.de/}
+            \item[Twitter/identi.ca] @netz39
+            \item[E-Mail] kontakt@netz39.de
+            \item[Mailingliste] list@netz39.de
+            \item[IRC] \#netz39 auf freenode
+        \end{description}
+    \end{center}
+\end{frame}
+
+\appendix
+
+\section{Lizenz}
+
+\begin{frame}{Lizenz}
+    % \begin{block}{Bilder}
+        % Die Bilder sind unter folgender Creative Commons-Lizenz
+        % veröffentlicht: \emph{Namensnennung-Keine kommerzielle
+        % Nutzung-Weitergabe unter gleichen Bedingungen 3.0}, (CC-BY-NC-SA
+        % 3.0).
+    % \end{block}
+    \begin{block}{Folien}
+        Die Folien sind freigegeben unter \emph{Creative Commons
+        Namensnennung-Weitergabe unter gleichen Bedingungen 3.0
+        Deutschland Lizenz}, (CC-BY-SA 3.0). Download unter:
+        \url{https://github.com/netz39/avr_101}
+    \end{block}
+\end{frame}
+
+\end{document}
