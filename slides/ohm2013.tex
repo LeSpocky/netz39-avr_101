@@ -100,9 +100,10 @@
 \begin{frame}{Assembler and C}
     \begin{itemize}
         \item close to CPU
-        \item efficient
+        \item efficient (if you're doing it right)
         \item available for microcontrollers
         \item standard in embedded world
+        \item dependent on uC none or very few alternatives
         \item \dots
     \end{itemize}
 \end{frame}
@@ -114,10 +115,10 @@
         \item Industry
         \item Home
         \item Multimedia
-        \item \dots
-        \pause
         \item Automotive
-        \item Communicate
+        \item Communications
+        \item Space
+        \item …
     \end{itemize}
 \end{frame}
 
@@ -137,7 +138,7 @@
 
 \subsection{Microcontroller}
 
-\begin{frame}{Overview}
+\begin{frame}{Families}
     \begin{itemize}
         \item Atmel AVR
         \item Microchip PIC
@@ -150,7 +151,7 @@
 \end{frame}
 
 \begin{frame}{ATtiny and ATmega}
-    add pictures here \dots
+    take pictures and add here \dots
 \end{frame}
 
 \subsection{Circuits}
@@ -159,37 +160,63 @@
     Bild?
 \end{frame}
 
-\begin{frame}{Starterkit}
-    Bild und Link
+\begin{frame}{Kits}
+    Bild Netz39 Starterkit
+
+    \url{http://www.netz39.de/projekte/starterkit/}
+
+    \pause
+    AVR STK 500: $\approx$ 85\,€
 \end{frame}
 
-\begin{frame}{Atmel Developerkitz}
-    Mit Preisen!!
-\end{frame}
+%\begin{frame}{Atmel Developerkitz}
+%    \begin{itemize}
+%        \item{AVR DRAGON: $\approx$ 50\,€}
+%        \item{AVR STK 500: $\approx$ 85\,€}
+%    \end{itemize}
+%\end{frame}
 
 \begin{frame}{Arduino}
     \begin{itemize}
         \item Will work even for this workshop!
         \item \url{http://hackaday.com/2013/07/10/build-a-bare-bones-arduino-clone-which-maximizes-its-use-of-real-estate/}
     \end{itemize}
+    \pause
+    \begin{alertblock}{Warning}
+        You'll destroy your bootloader and have to restore it if you
+        want to use it as Arduino again.
+    \end{alertblock}
 \end{frame}
 
 \subsection{Programmer}
 
-\begin{frame}{Atmel}
-    Mit Preisen!!
-\end{frame}
-
-\begin{frame}{Other Programming Devices}
+\begin{frame}{Programming Devices}
     \begin{itemize}
-        \item …
+        \item{AVR ISP2: $\approx$ 40\,€}
+        \item{AVR DRAGON: $\approx$ 50\,€}
+        \item{JTAG ICE 3: $\approx$ 115\,€}
+        \item{JTAG ICE MK II: $\approx$ 345\,€}
+        \pause
+        \item{serial (RS232)}
+        \item{USB, e.\,g. \emph{usbtiny}}
+        \item{any SPI-Device like Arduino, Raspberry Pi, r0ket, …}
     \end{itemize}
 \end{frame}
+
+%\begin{frame}{Other Programming Devices}
+%    \begin{itemize}
+%        \item …
+%    \end{itemize}
+%\end{frame}
 
 \subsection{Software}
 
 \begin{frame}{AVR Studio}
-    This is M\$ Windoof, who uses this shit?
+    This is M\$ Windoof, who uses this?
+
+    \pause
+
+    \emph{(Not covered in this workshop!)}
 \end{frame}
 
 \begin{frame}{Linux}
@@ -202,7 +229,7 @@
         \item avrdude
         \item avr-libc
         \item \$EDITOR
-        \item any version control
+        \item any version control (Mercurial, Git, Subversion, …)
     \end{itemize}
 \end{frame}
 
@@ -213,12 +240,14 @@
 \subsection{All the Ugly Stuff}
 
 \begin{frame}{Fuse Bits}
+    \url{http://www.engbedded.com/fusecalc}
 \end{frame}
 
 \begin{frame}{Makefile}
 \end{frame}
 
 \begin{frame}{Bootloader}
+    \emph{This is advanced stuff!}
 \end{frame}
 
 \section{Hello World}
