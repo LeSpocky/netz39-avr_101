@@ -3,10 +3,10 @@ PROGRAMMER = avrisp2
 CPU_GCC = attiny25
 CPU_DUDE = t25
 
-F_CPU = 8000000
+F_CPU = 1000000
 
 CDEFS = -DF_CPU=$(F_CPU)
-CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
+CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os -DREFLOW_LITE
 
 .phony: clean
 

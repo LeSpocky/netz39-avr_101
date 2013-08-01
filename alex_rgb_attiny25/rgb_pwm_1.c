@@ -3,7 +3,10 @@
 #include <util/delay.h>
 
 /*  defines */
-#define PORT_MASK   0x07;
+#define PORT_RD     (1 << PORTB3)
+#define PORT_GN     (1 << PORTB1)
+#define PORT_BL     (1 << PORTB4)
+#define PORT_MASK   (PORT_RD | PORT_GN | PORT_BL);
 
 /*  globals */
 volatile unsigned char comp_buf_R, comp_buf_G, comp_buf_B;
@@ -27,27 +30,27 @@ ISR(TIMER0_OVF_vect) {
      *  main loop buffer    */
     if ( ++soft_cnt_R == 0 ) {
         comp_R = comp_buf_R;
-        pin_level |= 0x01;
+        pin_level |= PORT_RD;
     }
     if ( ++soft_cnt_G == 0 ) {
         comp_G = comp_buf_G;
-        pin_level |= 0x02;
+        pin_level |= PORT_GN;
     }
     if ( ++soft_cnt_B == 0 ) {
         comp_B = comp_buf_B;
-        pin_level |= 0x04;
+        pin_level |= PORT_BL;
     }
 
     /*  on compare match clear pin level (written to port on next
      *  interrupt   */
     if ( comp_R == soft_cnt_R ) {
-        pin_level &= ~0x01;
+        pin_level &= ~PORT_RD;
     }
     if ( comp_G == soft_cnt_G ) {
-        pin_level &= ~0x02;
+        pin_level &= ~PORT_GN;
     }
     if ( comp_B == soft_cnt_B ) {
-        pin_level &= ~0x04;
+        pin_level &= ~PORT_BL;
     }
 }
 
