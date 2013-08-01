@@ -52,12 +52,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% images
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\pgfdeclareimage[height=0.75\paperheight]{strasse}{strasse}
-%\pgfdeclareimage[height=0.75\paperheight]{arbeitsraum}{arbeitsraum}
-%\pgfdeclareimage[height=0.75\paperheight]{lounge}{lounge}
-%\pgfdeclareimage[height=0.75\paperheight]{mate}{mate}
-%\pgfdeclareimage[height=0.75\paperheight]{regal}{regal}
-%\pgfdeclareimage[height=0.75\paperheight]{werkstatt}{werkstatt}
+\pgfdeclareimage[height=0.7\paperheight]{avrdip}{avr_dip}
+\pgfdeclareimage[height=0.7\paperheight]{breadboard}{breadboard}
+\pgfdeclareimage[height=0.3\paperheight]{skbottom}{starterkit_bottom}
+\pgfdeclareimage[height=0.3\paperheight]{sktop}{starterkit_top}
+\pgfdeclareimage[height=0.5\paperheight]{skparts}{starterkit_parts}
+\pgfdeclareimage[height=0.3\paperheight]{skpcbs}{starterkit_pcbs}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% title, author, date
@@ -151,22 +151,28 @@
 \end{frame}
 
 \begin{frame}{ATtiny and ATmega}
-    take pictures and add here \dots
+    \begin{figure}
+        \pgfuseimage{avrdip}
+    \end{figure}
 \end{frame}
 
 \subsection{Circuits}
 
 \begin{frame}{Breadboard}
-    Bild?
+    \begin{figure}
+        \pgfuseimage{breadboard}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Kits}
-    Bild Netz39 Starterkit
-
-    \url{http://www.netz39.de/projekte/starterkit/}
-
-    \pause
-    AVR STK 500: $\approx$ 85\,€
+    \begin{figure}
+        \pgfuseimage{skparts}
+    \end{figure}
+    \begin{itemize}
+        \item \url{http://www.netz39.de/projekte/starterkit/}
+        \pause
+        \item AVR STK 500: $\approx$ 85\,€
+    \end{itemize}
 \end{frame}
 
 %\begin{frame}{Atmel Developerkitz}
