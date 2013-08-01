@@ -21,19 +21,19 @@
 \definecolor{darkergreen}{rgb}{0,0.4,0}
 \definecolor{darkerred}{rgb}{0.4,0,0}
 
-%\usepackage{listings}
-%\lstloadlanguages{HTML,XML}
-%\lstset{
-%    basicstyle=\ttfamily\small\mdseries,
-%    keywordstyle=\bfseries\color{darkblue},
-%    identifierstyle=,
-%    commentstyle=\color{darkgray},
-%    stringstyle=\itshape\color{darkred},
-%    frame=none,
-%    showstringspaces=false,
-%    tabsize=4,
-%    backgroundcolor=\color{lightergray},
-%}
+\usepackage{listings}
+\lstloadlanguages{C}
+\lstset{
+    basicstyle=\ttfamily\small\mdseries,
+    keywordstyle=\bfseries\color{darkblue},
+    identifierstyle=,
+    commentstyle=\color{darkgray},
+    stringstyle=\itshape\color{darkred},
+    frame=none,
+    showstringspaces=false,
+    tabsize=4,
+    backgroundcolor=\color{lightergray},
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% preparations for beamer
@@ -182,15 +182,17 @@
 %    \end{itemize}
 %\end{frame}
 
-\begin{frame}{Arduino}
+\begin{frame}{Arduino and other devices}
     \begin{itemize}
-        \item Will work even for this workshop!
-        \item \url{http://hackaday.com/2013/07/10/build-a-bare-bones-arduino-clone-which-maximizes-its-use-of-real-estate/}
+        \item works even for this workshop
+        \item works with breadboard arduino clones
+        \item works with your 2nd usbtiny programmer
+        \item any circuit with AVR, LED and ISP header will do
     \end{itemize}
     \pause
     \begin{alertblock}{Warning}
-        You'll destroy your bootloader and have to restore it if you
-        want to use it as Arduino again.
+        You'll destroy the bootloader/firmware of your device and have
+        to restore it if you want to use it as before.
     \end{alertblock}
 \end{frame}
 
@@ -243,17 +245,60 @@
 
 \subsection{avrdude}
 
+\begin{frame}{avrdude}
+    \begin{itemize}
+        \item<1-5> \texttt{-v} -- verbose output
+        \item<2-5> \texttt{-c programmer-id} -- e.\,g. \texttt{usbtiny} or \texttt{avrisp2}
+        \item<3-5> \texttt{-p partno} -- e.\,g. \texttt{t85} or \texttt{m162}
+        \item<4-5> \texttt{-P port} -- e.\,g. \texttt{usb}
+        \item<5> \texttt{-t} -- test connection
+        \item<6> see \texttt{`man avrdude`}
+    \end{itemize}
+\end{frame}
+
 \subsection{All the Ugly Stuff}
-
-\begin{frame}{Fuse Bits}
-    \url{http://www.engbedded.com/fusecalc}
-\end{frame}
-
-\begin{frame}{Makefile}
-\end{frame}
 
 \begin{frame}{Bootloader}
     \emph{This is advanced stuff!}
+\end{frame}
+
+\begin{frame}{Fuse Bits}
+    \begin{itemize}
+        \item \emph{not needed in this workshop}
+        \pause
+        \item \url{http://www.engbedded.com/fusecalc}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Makefile}
+    \begin{lstlisting}[
+        language=make,
+        basicstyle=\ttfamily\scriptsize\mdseries,
+    ]
+PGM = avrisp2
+CPU_GCC = attiny25
+CPU = t25
+
+F_CPU = 1000000
+
+CDEFS = -DF_CPU=$(F_CPU)
+CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
+
+.phony: clean
+
+all: rgb.hex
+
+program: rgb.hex
+        avrdude -c $(PGM) -P usb -p $(CPU) -U flash:w:rgb.hex
+
+clean:
+        rm *.o *.elf *.hex
+
+rgb.hex: rgb.c
+        avr-gcc $(CFLAGS) -c rgb.c -o rgb.o
+        avr-gcc $(CFLAGS) rgb.o -o rgb.elf
+        avr-objcopy -R .eeprom -O ihex rgb.elf rgb.hex
+    \end{lstlisting}
 \end{frame}
 
 \section{Hello World}
@@ -263,15 +308,31 @@
 \begin{frame}{Simple Approach}
 \end{frame}
 
-\begin{frame}{PWM}
+\begin{frame}{Pulse Width Modulation}
+    \begin{itemize}
+        \item on on on on off off on on on on
+        \pause
+        \item \emph{add nice plot here, TikZ anyone?}
+        \pause
+        \item not linear with perceived LED brightness
+        \item don't fear pre calculated logarithmic lookup tables
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Timers}
+    \begin{itemize}
+        \item count up or down
+        \item count to a certain value
+        \item count endlessly till overflow
+        \item count exertnal events
+        \pause
+        \item you really need the micro controller documentation!
+    \end{itemize}
 \end{frame}
 
-\subsection{Input}
+%\subsection{Input}
 
-\subsection{Red, Green, and Blue}
+%\subsection{Red, Green, and Blue}
 
 \section{Contact}
 
