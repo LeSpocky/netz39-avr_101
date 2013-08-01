@@ -305,7 +305,27 @@ rgb.hex: rgb.c
 
 \subsection{LED Blinking}
 
-\begin{frame}{Simple Approach}
+\begin{frame}[fragile]{Simple Approach}
+    \begin{lstlisting}[
+        language=C,
+        basicstyle=\ttfamily\normalsize\mdseries,
+    ]
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main (void) {
+    DDRB = (1 << DDB0);
+
+    while ( 1 ) {
+        PORTB = (1 << PORTB0);
+        _delay_ms( 100 );
+        PORTB = 0;
+        _delay_ms( 100 );
+    }
+
+    return 0;
+}
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}{Pulse Width Modulation}
@@ -324,7 +344,7 @@ rgb.hex: rgb.c
         \item count up or down
         \item count to a certain value
         \item count endlessly till overflow
-        \item count exertnal events
+        \item count external events
         \pause
         \item you really need the micro controller documentation!
     \end{itemize}
@@ -353,13 +373,7 @@ rgb.hex: rgb.c
 \section{License}
 
 \begin{frame}{License}
-    % \begin{block}{Bilder}
-        % Die Bilder sind unter folgender Creative Commons-Lizenz
-        % veröffentlicht: \emph{Namensnennung-Keine kommerzielle
-        % Nutzung-Weitergabe unter gleichen Bedingungen 3.0}, (CC-BY-NC-SA
-        % 3.0).
-    % \end{block}
-    \begin{block}{Slides}
+    \begin{block}{Slides and Pictures}
         This work is licensed under a \emph{Creative Commons
         Attribution-ShareAlike 3.0 Unported License}, (CC-BY-SA 3.0).
         Source at: \url{https://github.com/netz39/avr_101}
