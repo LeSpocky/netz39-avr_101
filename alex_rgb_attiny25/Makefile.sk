@@ -5,8 +5,8 @@ CPU_DUDE = t85
 
 F_CPU = 1000000
 
-CDEFS = -DF_CPU=$(F_CPU)
-CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os -DSTARTERKIT
+CDEFS = -DF_CPU=$(F_CPU) -DSTARTERKIT
+CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
 
 .phony: clean
 

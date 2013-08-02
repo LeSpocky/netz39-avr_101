@@ -5,8 +5,8 @@ CPU_DUDE = t25
 
 F_CPU = 1000000
 
-CDEFS = -DF_CPU=$(F_CPU)
-CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os -DREFLOW_LITE
+CDEFS = -DF_CPU=$(F_CPU) -DREFLOW_LITE
+CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
 
 .phony: clean
 
