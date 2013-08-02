@@ -5,8 +5,44 @@
 #include <util/delay.h>
 
 /*  defines */
-#define PORT_MASK       0x07
+//#define STARTERKIT
+//#define BREADBOARD_BIG
+
+#ifdef STARTERKIT
+#define DIR_RD          (1 << DDB3)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB4)
+#define PORT_RD         (1 << PORTB3)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB4)
+#define INVERTED_LED    false
+#endif
+
+#ifdef BREADBOARD_BIG
+#define DIR_RD          (1 << DDB0)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB2)
+#define PORT_RD         (1 << PORTB0)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB2)
 #define INVERTED_LED    true
+#endif
+
+#ifdef REFLOW_LITE
+#define DIR_RD          (1 << DDB0)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB2)
+#define PORT_RD         (1 << PORTB0)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB2)
+#define INVERTED_LED    false
+#endif
+
+#ifndef INVERTED_LED
+#error "set some target"
+#endif
+
+#define PORT_MASK       (PORT_RD | PORT_GN | PORT_BL)
 
 /*  constants   */
 const unsigned char pwmtable[32] = {
@@ -37,27 +73,27 @@ ISR(TIMER0_OVF_vect) {
      *  main loop buffer and set LED on */
     if ( ++soft_cnt_R == 0 ) {
         comp_R = comp_buf_R;
-        led_status |= 0x01;
+        led_status |= PORT_RD;
     }
     if ( ++soft_cnt_G == 0 ) {
         comp_G = comp_buf_G;
-        led_status |= 0x02;
+        led_status |= PORT_GN;
     }
     if ( ++soft_cnt_B == 0 ) {
         comp_B = comp_buf_B;
-        led_status |= 0x04;
+        led_status |= PORT_BL;
     }
 
     /*  on compare match set LED off (written to port on next
      *  interrupt)  */
     if ( comp_R == soft_cnt_R ) {
-        led_status &= ~0x01;
+        led_status &= ~PORT_RD;
     }
     if ( comp_G == soft_cnt_G ) {
-        led_status &= ~0x02;
+        led_status &= ~PORT_GN;
     }
     if ( comp_B == soft_cnt_B ) {
-        led_status &= ~0x04;
+        led_status &= ~PORT_BL;
     }
 
     pin_level = ( INVERTED_LED ? ~led_status : led_status ) & PORT_MASK;
@@ -105,7 +141,7 @@ void init( void ) {
     CLKPR = 0;              /*  set clock to maximum                */
 
     /*  set port pins to output and value 0 */
-    DDRB = (1 << DDB0) | (1 << DDB1) | (1 << DDB2);
+    DDRB = DIR_RD | DIR_GN | DIR_BL;
     PORTB = 0;
 
     /*  timer init  */

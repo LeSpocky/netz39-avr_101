@@ -1,0 +1,385 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% documentclass and packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{atbegshi}           % workaround for newer PGF versions
+\documentclass{beamer}
+% https://sourceforge.net/tracker/index.php?func=detail&aid=1848912&group_id=92412&atid=600660
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[ngerman]{babel}
+\usepackage[babel,english=american,german=guillemets]{csquotes}	% french
+\usepackage{microtype}
+
+% colors for listings
+\definecolor{lightergray}{gray}{.95}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkerblue}{rgb}{0,0,0.4}
+\definecolor{darkergreen}{rgb}{0,0.4,0}
+\definecolor{darkerred}{rgb}{0.4,0,0}
+
+\usepackage{listings}
+\lstloadlanguages{C}
+\lstset{
+    basicstyle=\ttfamily\small\mdseries,
+    keywordstyle=\bfseries\color{darkblue},
+    identifierstyle=,
+    commentstyle=\color{darkgray},
+    stringstyle=\itshape\color{darkred},
+    frame=none,
+    showstringspaces=false,
+    tabsize=4,
+    backgroundcolor=\color{lightergray},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% preparations for beamer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useinnertheme{default}
+\useoutertheme{infolines}
+%\usecolortheme[rgb={0.28,0.37,0.52}]{structure}
+\usecolortheme[rgb={0.18,0.23,0.33}]{structure}
+%\usecolortheme{beaver}
+\usefonttheme{structurebold}
+
+%%% Ränder vergrößern für's Café Central
+\setbeamersize{text margin left=1.2cm}
+\setbeamersize{text margin right=1.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfdeclareimage[height=0.7\paperheight]{avrdip}{avr_dip}
+\pgfdeclareimage[height=0.7\paperheight]{breadboard}{breadboard}
+\pgfdeclareimage[height=0.3\paperheight]{skbottom}{starterkit_bottom}
+\pgfdeclareimage[height=0.3\paperheight]{sktop}{starterkit_top}
+\pgfdeclareimage[height=0.5\paperheight]{skparts}{starterkit_parts}
+\pgfdeclareimage[height=0.3\paperheight]{skpcbs}{starterkit_pcbs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% title, author, date
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{AVR101}
+\subtitle{OHM version}
+\author{Netz39 e.\,V.}
+\institute{\url{http://www.netz39.de/}}
+\date{2013}
+\subject{subj}
+\keywords{AVR, Workshop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+
+\section{Why?}
+
+\subsection{Learning Things}
+
+\begin{frame}{Learn All The Detailz}
+    \begin{itemize}
+        \item CPU
+        \item Register
+        \item Memory
+        \item Interfaces and Ports
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Assembler and C}
+    \begin{itemize}
+        \item close to CPU
+        \item efficient (if you're doing it right)
+        \item available for microcontrollers
+        \item standard in embedded world
+        \item dependent on uC none or very few alternatives
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\subsection{Uses Cases}
+
+\begin{frame}{Where?}
+    \begin{itemize}
+        \item Industry
+        \item Home
+        \item Multimedia
+        \item Automotive
+        \item Communications
+        \item Space
+        \item …
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What?}
+    \begin{itemize}
+        \item Light Emitting Stuff
+        \item Quadrocopter
+        \item Human Interface Devices
+        \item Home Control Foobar
+        \item Measuring Devices
+        \item Programmer
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\section{Needed Things}
+
+\subsection{Microcontroller}
+
+\begin{frame}{Families}
+    \begin{itemize}
+        \item Atmel AVR
+        \item Microchip PIC
+        \item Intel 8051
+        \item C166/C167 (Siemens/Infineon)
+        \item Renesas R8C/M16C/…
+        \item TI MSP430
+        \item …
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ATtiny and ATmega}
+    \begin{figure}
+        \pgfuseimage{avrdip}
+    \end{figure}
+\end{frame}
+
+\subsection{Circuits}
+
+\begin{frame}{Breadboard}
+    \begin{figure}
+        \pgfuseimage{breadboard}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Kits}
+    \begin{figure}
+        \pgfuseimage{skparts}
+    \end{figure}
+    \begin{itemize}
+        \item \url{http://www.netz39.de/projekte/starterkit/}
+        \pause
+        \item AVR STK 500: $\approx$ 85\,€
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}{Atmel Developerkitz}
+%    \begin{itemize}
+%        \item{AVR DRAGON: $\approx$ 50\,€}
+%        \item{AVR STK 500: $\approx$ 85\,€}
+%    \end{itemize}
+%\end{frame}
+
+\begin{frame}{Arduino and other devices}
+    \begin{itemize}
+        \item works even for this workshop
+        \item works with breadboard arduino clones
+        \item works with your 2nd usbtiny programmer
+        \item any circuit with AVR, LED and ISP header will do
+    \end{itemize}
+    \pause
+    \begin{alertblock}{Warning}
+        You'll destroy the bootloader/firmware of your device and have
+        to restore it if you want to use it as before.
+    \end{alertblock}
+\end{frame}
+
+\subsection{Programmer}
+
+\begin{frame}{Programming Devices}
+    \begin{itemize}
+        \item{AVR ISP2: $\approx$ 40\,€}
+        \item{AVR DRAGON: $\approx$ 50\,€}
+        \item{JTAG ICE 3: $\approx$ 115\,€}
+        \item{JTAG ICE MK II: $\approx$ 345\,€}
+        \pause
+        \item{serial (RS232)}
+        \item{USB, e.\,g. \emph{usbtiny}}
+        \item{any SPI-Device like Arduino, Raspberry Pi, r0ket, …}
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}{Other Programming Devices}
+%    \begin{itemize}
+%        \item …
+%    \end{itemize}
+%\end{frame}
+
+\subsection{Software}
+
+\begin{frame}{AVR Studio}
+    This is M\$ Windoof, who uses this?
+
+    \pause
+
+    \emph{(Not covered in this workshop!)}
+\end{frame}
+
+\begin{frame}{Linux}
+    \begin{block}{GUI anyone?}
+        \emph{CLI rulez!}
+    \end{block}
+    \begin{itemize}
+        \item gcc-avr
+        \item binutils-avr
+        \item avrdude
+        \item avr-libc
+        \item \$EDITOR
+        \item any version control (Mercurial, Git, Subversion, …)
+    \end{itemize}
+\end{frame}
+
+\section{Flashing the Device}
+
+\subsection{avrdude}
+
+\begin{frame}{avrdude}
+    \begin{itemize}
+        \item<1-5> \texttt{-v} -- verbose output
+        \item<2-5> \texttt{-c programmer-id} -- e.\,g. \texttt{usbtiny} or \texttt{avrisp2}
+        \item<3-5> \texttt{-p partno} -- e.\,g. \texttt{t85} or \texttt{m162}
+        \item<4-5> \texttt{-P port} -- e.\,g. \texttt{usb}
+        \item<5> \texttt{-t} -- test connection
+        \item<6> see \texttt{`man avrdude`}
+    \end{itemize}
+\end{frame}
+
+\subsection{All the Ugly Stuff}
+
+\begin{frame}{Bootloader}
+    \emph{This is advanced stuff!}
+\end{frame}
+
+\begin{frame}{Fuse Bits}
+    \begin{itemize}
+        \item \emph{not needed in this workshop}
+        \pause
+        \item \url{http://www.engbedded.com/fusecalc}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Makefile}
+    \begin{lstlisting}[
+        language=make,
+        basicstyle=\ttfamily\scriptsize\mdseries,
+    ]
+PGM = avrisp2
+CPU_GCC = attiny25
+CPU = t25
+
+F_CPU = 1000000
+
+CDEFS = -DF_CPU=$(F_CPU)
+CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
+
+.phony: clean
+
+all: rgb.hex
+
+program: rgb.hex
+        avrdude -c $(PGM) -P usb -p $(CPU) -U flash:w:rgb.hex
+
+clean:
+        rm *.o *.elf *.hex
+
+rgb.hex: rgb.c
+        avr-gcc $(CFLAGS) -c rgb.c -o rgb.o
+        avr-gcc $(CFLAGS) rgb.o -o rgb.elf
+        avr-objcopy -R .eeprom -O ihex rgb.elf rgb.hex
+    \end{lstlisting}
+\end{frame}
+
+\section{Hello World}
+
+\subsection{LED Blinking}
+
+\begin{frame}[fragile]{Simple Approach}
+    \begin{lstlisting}[
+        language=C,
+        basicstyle=\ttfamily\normalsize\mdseries,
+    ]
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main (void) {
+    DDRB = (1 << DDB0);
+
+    while ( 1 ) {
+        PORTB = (1 << PORTB0);
+        _delay_ms( 100 );
+        PORTB = 0;
+        _delay_ms( 100 );
+    }
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Pulse Width Modulation}
+    \begin{itemize}
+        \item on on on on off off on on on on
+        \pause
+        \item \emph{add nice plot here, TikZ anyone?}
+        \pause
+        \item not linear with perceived LED brightness
+        \item don't fear pre calculated logarithmic lookup tables
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Timers}
+    \begin{itemize}
+        \item count up or down
+        \item count to a certain value
+        \item count endlessly till overflow
+        \item count external events
+        \pause
+        \item you really need the micro controller documentation!
+    \end{itemize}
+\end{frame}
+
+%\subsection{Input}
+
+%\subsection{Red, Green, and Blue}
+
+\section{Contact}
+
+\begin{frame}{Contact}
+    \begin{center}
+        \begin{description}[Twitter/identi.ca]
+            \item[WWW] \url{http://www.netz39.de/}
+            \item[Twitter/identi.ca] @netz39
+            \item[E-Mail] kontakt@netz39.de
+            \item[Mailingliste] list@netz39.de
+            \item[IRC] \#netz39 on freenode
+        \end{description}
+    \end{center}
+\end{frame}
+
+\appendix
+
+\section{License}
+
+\begin{frame}{License}
+    \begin{block}{Slides and Pictures}
+        This work is licensed under a \emph{Creative Commons
+        Attribution-ShareAlike 3.0 Unported License}, (CC-BY-SA 3.0).
+        Source at: \url{https://github.com/netz39/avr_101}
+    \end{block}
+\end{frame}
+
+
+
+\end{document}
