@@ -75,7 +75,7 @@ ISR(TIMER0_OVF_vect) {
 
 /*  main    */
 int main (void) {
-    unsigned char color = 0, key_mask, led;
+    unsigned char color = 0, key_mask, port;
 
     init();
 
@@ -91,17 +91,18 @@ int main (void) {
             color++;
             color &= 0x07;
 
-            led = 0;
+            port = 0;
             if ( color & 0x01 ) {
-                led |= PORT_RD;
+                port |= PORT_RD;
             }
             if ( color & 0x02 ) {
-                led |= PORT_GN;
+                port |= PORT_GN;
             }
             if ( color & 0x04 ) {
-                led |= PORT_BL;
+                port |= PORT_BL;
             }
-            PORTB = ( INVERTED_LED ? ~led : led ) & PORT_MASK;
+            PORTB = ( INVERTED_LED ? ~port : port ) & PORT_MASK;
+            PORTB |= PORT_BTN;  /*  button pull up has to stay enabled  */
         }
     }
 
@@ -124,9 +125,9 @@ void init( void ) {
 
     /*  set port pins to output and value 0, all other are inputs then,
      *  set pull-up on button input */
+    MCUCR &= ~PUD;
     DDRB = DIR_RD | DIR_GN | DIR_BL;
     PORTB = 0;
-    MCUCR |= PUD;
     PORTB |= PORT_BTN;
 
     /*  timer init  */
