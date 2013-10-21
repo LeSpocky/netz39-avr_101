@@ -59,7 +59,7 @@ unsigned char           key_press;  /*  key press detect    */
 void init( void );
 
 /*  ISR     */
-ISR(TIMER0_OVF_vect) {
+ISR(TIMER1_OVF_vect) {
     static unsigned char    ct0, ct1;
     unsigned char           i;
 
@@ -101,8 +101,7 @@ int main (void) {
             if ( color & 0x04 ) {
                 port |= PORT_BL;
             }
-            PORTB = ( INVERTED_LED ? ~port : port ) & PORT_MASK;
-            PORTB |= PORT_BTN;  /*  button pull up has to stay enabled  */
+            PORTB = ( ( INVERTED_LED ? ~port : port ) & PORT_MASK ) | PORT_BTN;
         }
     }
 
@@ -131,12 +130,13 @@ void init( void ) {
     PORTB |= PORT_BTN;
 
     /*  timer init  */
-    TIFR &= ~(1 << TOV0);   /*  clear timer0 overflow interrupt flag    */
-    TIMSK |= (1 << TOIE0);  /*  enable timer0 overflow interrupt        */
+    TIFR &= ~(1 << TOV1);   /*  clear timer1 overflow interrupt flag    */
+    TIMSK |= (1 << TOIE1);  /*  enable timer1 overflow interrupt        */
 
-    /*  start timer0 by setting last 3 bits in timer0 control register B
-     *  to any clock source */
-    TCCR0B = (TCCR0B & 0xF8) | (0x01 & 0x07);
+    /*  start timer1 by setting CS1 bits in timer1 control register to
+     *  clk_I/O devided by 256. for 8 MHz internal oscillator
+     *  the timer overflow comes every 256*256 cycles aka 8ms. */
+    TCCR1 = (TCCR1 & 0xF0) | (0x09 & 0x0F);
 
     sei();
 }
