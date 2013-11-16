@@ -1,5 +1,6 @@
-PROGRAMMER = avrisp2
+#PROGRAMMER = avrisp2
 #PROGRAMMER = usbtiny
+PROGRAMMER = usbasp
 CPU_GCC = attiny85
 CPU_DUDE = t85
 
@@ -13,7 +14,7 @@ CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
 all: rgb.hex
 
 program: rgb.hex
-	avrdude -c $(PROGRAMMER) -P usb -p $(CPU_DUDE) -U flash:w:rgb.hex
+	avrdude -c $(PROGRAMMER) -P usb -p $(CPU_DUDE) -U flash:w:rgb.hex -B 20
 
 clean:
 	rm *.o *.elf *.hex
