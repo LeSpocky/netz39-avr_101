@@ -6,7 +6,7 @@
 
 /*  defines */
 //#define STARTERKIT
-//#define BREADBOARD_BIG
+//#define BREADBOARD
 
 #ifdef STARTERKIT
 #define DIR_RD          (1 << DDB3)
@@ -18,7 +18,7 @@
 #define INVERTED_LED    false
 #endif
 
-#ifdef BREADBOARD_BIG
+#ifdef BREADBOARD
 #define DIR_RD          (1 << DDB0)
 #define DIR_GN          (1 << DDB1)
 #define DIR_BL          (1 << DDB2)

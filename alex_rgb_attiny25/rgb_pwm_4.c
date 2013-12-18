@@ -6,13 +6,52 @@
 #include <util/delay.h>
 
 /*  defines */
+//#define STARTERKIT
+//#define BREADBOARD_BIG
+
+#ifdef STARTERKIT
+#define DIR_RD          (1 << DDB3)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB4)
+#define PORT_RD         (1 << PORTB3)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB4)
+#define INVERTED_LED    false
+#define SET_MUX         0x01
+#endif
+
+#ifdef BREADBOARD_BIG
+#define DIR_RD          (1 << DDB0)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB2)
+#define PORT_RD         (1 << PORTB0)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB2)
 #define INVERTED_LED    true
-#define PORT_MASK       0x07
+#define SET_MUX         0x03
+#endif
+
+#ifdef REFLOW_LITE
+#define DIR_RD          (1 << DDB0)
+#define DIR_GN          (1 << DDB1)
+#define DIR_BL          (1 << DDB2)
+#define PORT_RD         (1 << PORTB0)
+#define PORT_GN         (1 << PORTB1)
+#define PORT_BL         (1 << PORTB2)
+#define INVERTED_LED    false
+#define SET_MUX         0x03
+#endif
+
+#ifndef INVERTED_LED
+#error "set some target"
+#endif
+
+#define PORT_MASK       (PORT_RD | PORT_GN | PORT_BL)
 
 #define MASK_ADPS       0x07    /*  ADPS2:ADPS0 in ADCSRA           */
 #define MASK_ADTS       0x07    /*  ADTS2:ADTS0 in ADCSRB           */
-#define MASK_MUX        0x0F    /*  MUX3:MUX0 in ADMUX              */
 #define MASK_REFS       0xD0    /*  REFS1,REFS0 and REFS2 in ADMUX  */
+#define MASK_MUX        0x0F    /*  MUX3:MUX0 in ADMUX              */
 
 /*  constants   */
 const uint8_t pwmtable[32] = {
@@ -59,27 +98,27 @@ ISR(TIMER0_OVF_vect) {
      *  main loop buffer and set LED on */
     if ( ++soft_cnt_R == 0 ) {
         comp_R = comp_buf_R;
-        led_status |= 0x01;
+        led_status |= PORT_RD;
     }
     if ( ++soft_cnt_G == 0 ) {
         comp_G = comp_buf_G;
-        led_status |= 0x02;
+        led_status |= PORT_GN;
     }
     if ( ++soft_cnt_B == 0 ) {
         comp_B = comp_buf_B;
-        led_status |= 0x04;
+        led_status |= PORT_BL;
     }
 
     /*  on compare match set LED off (written to port on next
      *  interrupt)  */
     if ( comp_R == soft_cnt_R ) {
-        led_status &= ~0x01;
+        led_status &= ~PORT_RD;
     }
     if ( comp_G == soft_cnt_G ) {
-        led_status &= ~0x02;
+        led_status &= ~PORT_GN;
     }
     if ( comp_B == soft_cnt_B ) {
-        led_status &= ~0x04;
+        led_status &= ~PORT_BL;
     }
 
     pin_level = ( INVERTED_LED ? ~led_status : led_status ) & PORT_MASK;
@@ -149,7 +188,7 @@ void init( void ) {
     CLKPR = 0;              /*  set clock to maximum                */
 
     /*  set port pins to output and value 0 */
-    DDRB = (1 << DDB0) | (1 << DDB1) | (1 << DDB2);
+    DDRB = DIR_RD | DIR_GN | DIR_BL;
     PORTB = 0;
 
     /*  timer init  */
@@ -167,14 +206,14 @@ void init( void ) {
      *  to fetch ADCH for an 8-bit result   */
     ADMUX |= (1 << ADLAR);
 
-    /*  use ADC3/PB3 only
-     *
-     *  NOTE    this won't work later with two potentionmeters  */
-    ADMUX = (ADMUX & ~MASK_MUX) | (0x03 & MASK_MUX);
+    /*  set which ADC pin is used   */
+    ADMUX = (ADMUX & ~MASK_MUX) | (SET_MUX & MASK_MUX);
 
     /*  set prescaler in a way the ADC clock gets between 50khZ and
      *  200 kHz. using a prescaler of 128 here yields a value in this
      *  interval for both 8MHz and 16MHz clock. */
+    /*  TODO    check this for default 1 MHz or make dependent on cpu
+     *          clock speed!    */
     ADCSRA = (ADCSRA & ~MASK_ADPS) | (0x07 & MASK_ADPS);
 
     /*  use ADC free running mode   */

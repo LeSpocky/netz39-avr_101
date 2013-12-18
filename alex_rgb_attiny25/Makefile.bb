@@ -5,7 +5,7 @@ CPU_DUDE = t25
 
 F_CPU = 1000000
 
-CDEFS = -DF_CPU=$(F_CPU) -DBREADBOARD_BIG
+CDEFS = -DF_CPU=$(F_CPU) -DBREADBOARD
 CFLAGS = -mmcu=$(CPU_GCC) $(CDEFS) -Wall -Os
 
 .phony: clean
