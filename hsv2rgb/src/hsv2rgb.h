@@ -26,6 +26,13 @@
 #ifndef _HSV2RGB_H_
 #define _HSV2RGB_H_
 
+#include <stdint.h>
+
+/**
+ *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
+ */
+int16_t p( uint8_t v, uint8_t s );
+
 #endif /* _HSV2RGB_H_ */
 
 /* vim: set noet sts=0 ts=4 sw=4 sr: */

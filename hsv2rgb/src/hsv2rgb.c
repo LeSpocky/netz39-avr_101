@@ -25,4 +25,13 @@
 
 #include "hsv2rgb.h"
 
+#include <stdint.h>
+
+int16_t p( uint8_t v, uint8_t s ) {
+	uint16_t _v = v, _s = s;
+
+//	return (int16_t) ( _v * ( (uint16_t) 255 - _s ) / 255 );
+	return (int16_t) ( _v * ( 255 - _s ) / 255 );
+}
+
 /* vim: set noet sts=0 ts=4 sw=4 sr: */
