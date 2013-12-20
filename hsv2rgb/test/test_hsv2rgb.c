@@ -33,6 +33,12 @@ int main( int argc, char **argv ) {
 	int16_t	rv;
 	int		lpc;
 
+	/*	check parameters	*/
+	if ( argc != 2 ) {
+		(void) fprintf( stderr, "usage: %s CMD\n", argv[0] );
+		return EXIT_FAILURE;
+	}
+
 	/*	init	*/
 	for ( lpc = 0; lpc < 5; lpc++ ) {
 		bsize_8[lpc] = buckets_8[lpc+1] - buckets_8[lpc];
@@ -46,32 +52,28 @@ int main( int argc, char **argv ) {
 	(void) printf( "\n" );
 #endif
 
-	if ( argc != 2 ) {
-		(void) fprintf( stderr, "usage: %s CMD\n", argv[0] );
-		return EXIT_FAILURE;
-	}
-
+	/*	dispatch	*/
 	if ( !strcmp( argv[1], "hi8" ) ) {
 		if ( (rv = hi8( 0 )) != 0 ) {
 			(void) fprintf( stderr,
 					"hi( 0 ) failed with %i on line %u!\n",
-					rv, __LINE__);
+					rv, __LINE__ - 3 );
 		}
 	} else if ( !strcmp( argv[1], "p8" ) ) {
 		for ( s = 0xFF; s; s-- ) {
 			/*	V = 0	*/
-			if ( p8( 0, s ) != 0 ) {
+			if ( (rv = p8( 0, s )) != 0 ) {
 				(void) fprintf( stderr,
-						"p( V = 0, S = %u ) failed on line %u!\n",
-						s, __LINE__ - 3 );
+						"p( V = 0, S = %u ) failed  with %i on line %u!\n",
+						s, rv, __LINE__ - 3 );
 				return EXIT_FAILURE;
 			}
 
 			/*	V = 255	*/
-			if ( p8( 0xFF, s ) != 0xFF - s ) {
+			if ( (rv = p8( 0xFF, s )) != 0xFF - s ) {
 				(void) fprintf( stderr,
-						"p( V = 255, S = %u ) failed on line %u!\n",
-						s, __LINE__ - 3 );
+						"p( V = 255, S = %u ) failed with %i on line %u!\n",
+						s, rv, __LINE__ - 3 );
 				return EXIT_FAILURE;
 			}
 
@@ -89,18 +91,18 @@ int main( int argc, char **argv ) {
 
 		for ( v = 0xFF; v; v-- ) {
 			/*	S = 0	*/
-			if ( p8( v, 0 ) != v ) {
+			if ( (rv = p8( v, 0 )) != v ) {
 				(void) fprintf( stderr,
-						"p( V = %u, S = 0 ) failed on line %u!\n",
-						v, __LINE__ - 3 );
+						"p( V = %u, S = 0 ) failed with %i on line %u!\n",
+						v, rv, __LINE__ - 3 );
 				return EXIT_FAILURE;
 			}
 
 			/*	S = 255	*/
-			if ( p8( v, 255 ) != 0 ) {
+			if ( (rv = p8( v, 255 )) != 0 ) {
 				(void) fprintf( stderr,
-						"p( V = %u, S = 255 ) failed on line %u!\n",
-						v, __LINE__ - 3 );
+						"p( V = %u, S = 255 ) failed with %i on line %u!\n",
+						v, rv, __LINE__ - 3 );
 				return EXIT_FAILURE;
 			}
 		}
