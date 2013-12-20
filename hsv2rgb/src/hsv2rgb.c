@@ -27,7 +27,18 @@
 
 #include <stdint.h>
 
-int16_t p( uint8_t v, uint8_t s ) {
+const uint8_t buckets_8[6] = { 0, 43, 86, 128, 171, 214 };
+const uint16_t buckets_10[6] = { 0, 171, 342, 512, 683, 854 };
+
+int16_t hi8( uint8_t h ) {
+	return -1;
+}
+
+int16_t hi10( uint16_t h ) {
+	return -1;
+}
+
+int16_t p8( uint8_t v, uint8_t s ) {
 	uint16_t _v = v, _s = s;
 
 //	return (int16_t) ( _v * ( (uint16_t) 255 - _s ) / 255 );

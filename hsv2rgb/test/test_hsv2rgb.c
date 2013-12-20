@@ -29,18 +29,38 @@
 #include "hsv2rgb.h"
 
 int main( int argc, char **argv ) {
-	uint8_t	s, v;
+	uint8_t	bsize_8[6], s, v;
 	int16_t	rv;
+	int		lpc;
+
+	/*	init	*/
+	for ( lpc = 0; lpc < 5; lpc++ ) {
+		bsize_8[lpc] = buckets_8[lpc+1] - buckets_8[lpc];
+	}
+	bsize_8[5] = 256 - buckets_8[5];
+#ifndef NDEBUG
+	(void) printf( "bsize_8:" );
+	for ( lpc = 0; lpc < 6; lpc++ ) {
+		(void) printf( " %u", bsize_8[lpc] );
+	}
+	(void) printf( "\n" );
+#endif
 
 	if ( argc != 2 ) {
 		(void) fprintf( stderr, "usage: %s CMD\n", argv[0] );
 		return EXIT_FAILURE;
 	}
 
-	if ( !strcmp( argv[1], "p" ) ) {
+	if ( !strcmp( argv[1], "hi8" ) ) {
+		if ( (rv = hi8( 0 )) != 0 ) {
+			(void) fprintf( stderr,
+					"hi( 0 ) failed with %i on line %u!\n",
+					rv, __LINE__);
+		}
+	} else if ( !strcmp( argv[1], "p8" ) ) {
 		for ( s = 0xFF; s; s-- ) {
 			/*	V = 0	*/
-			if ( p( 0, s ) != 0 ) {
+			if ( p8( 0, s ) != 0 ) {
 				(void) fprintf( stderr,
 						"p( V = 0, S = %u ) failed on line %u!\n",
 						s, __LINE__ - 3 );
@@ -48,7 +68,7 @@ int main( int argc, char **argv ) {
 			}
 
 			/*	V = 255	*/
-			if ( p( 0xFF, s ) != 0xFF - s ) {
+			if ( p8( 0xFF, s ) != 0xFF - s ) {
 				(void) fprintf( stderr,
 						"p( V = 255, S = %u ) failed on line %u!\n",
 						s, __LINE__ - 3 );
@@ -57,7 +77,7 @@ int main( int argc, char **argv ) {
 
 			/*	range issues	*/
 			for ( v = 0xFF; v; v-- ) {
-				rv = p( s, v );
+				rv = p8( s, v );
 				if ( rv < 0 || rv > 255 ) {
 					(void) fprintf( stderr,
 							"p( V = %u, S = %u ) failed with %i on line %u!\n",
@@ -69,7 +89,7 @@ int main( int argc, char **argv ) {
 
 		for ( v = 0xFF; v; v-- ) {
 			/*	S = 0	*/
-			if ( p( v, 0 ) != v ) {
+			if ( p8( v, 0 ) != v ) {
 				(void) fprintf( stderr,
 						"p( V = %u, S = 0 ) failed on line %u!\n",
 						v, __LINE__ - 3 );
@@ -77,7 +97,7 @@ int main( int argc, char **argv ) {
 			}
 
 			/*	S = 255	*/
-			if ( p( v, 255 ) != 0 ) {
+			if ( p8( v, 255 ) != 0 ) {
 				(void) fprintf( stderr,
 						"p( V = %u, S = 255 ) failed on line %u!\n",
 						v, __LINE__ - 3 );

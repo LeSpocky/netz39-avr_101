@@ -28,10 +28,27 @@
 
 #include <stdint.h>
 
+const uint8_t buckets_8[6];
+const uint16_t buckets_10[6];
+
+/**
+ *	@note	Do not return 6 for full H, but 0 instead.
+ *
+ *	@return	0 to 5
+ */
+int16_t hi8( uint8_t h );
+
+/**
+ *	@note	Do not return 6 for full H, but 0 instead.
+ *
+ *	@return	0 to 5
+ */
+int16_t hi10( uint16_t h );
+
 /**
  *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
  */
-int16_t p( uint8_t v, uint8_t s );
+int16_t p8( uint8_t v, uint8_t s );
 
 #endif /* _HSV2RGB_H_ */
 

@@ -2,10 +2,15 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/src"
 )
 
-# list_create
 add_executable(test_hsv2rgb
     "${PROJECT_SOURCE_DIR}/src/hsv2rgb.c"
     "test_hsv2rgb.c"
 )
-add_test(NAME p
-    COMMAND test_hsv2rgb p)
+
+# hi8
+add_test(NAME hi8
+    COMMAND test_hsv2rgb hi8)
+
+# p8
+add_test(NAME p8
+    COMMAND test_hsv2rgb p8)
