@@ -25,11 +25,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "hsv2rgb.h"
 
 int main( int argc, char **argv ) {
-	uint8_t		f, h, s, v;
+	uint16_t	f, h, s, v;
+	uint8_t		r, g, b;
 	int16_t		rv;
 	uint32_t	line;
 	int			lpc;
@@ -41,6 +43,7 @@ int main( int argc, char **argv ) {
 	}
 
 	/*	init	*/
+	srand( time( NULL ) );
 	for ( lpc = 0; lpc < 5; lpc++ ) {
 		bsize_8[lpc] = buckets_8[lpc+1] - buckets_8[lpc];
 	}
@@ -55,7 +58,7 @@ int main( int argc, char **argv ) {
 
 	/*	dispatch	*/
 	if ( !strcmp( argv[1], "f" ) ) {
-		for ( h = 255; h; h-- ) {
+		for ( h = 0; h < 256; h++ ) {
 			rv = f8( h );
 			line = __LINE__ - 1;
 			if ( (rv < 0) || (rv > 255)
@@ -81,7 +84,7 @@ int main( int argc, char **argv ) {
 
 		return EXIT_SUCCESS;
 	} else if ( !strcmp( argv[1], "hi8" ) ) {
-		for ( h = 255; h; h-- ) {
+		for ( h = 0; h < 256; h++ ) {
 			rv = hi8( h );
 			line = __LINE__ - 1;
 			if ( (rv < 0) || (rv > 5)
@@ -107,7 +110,7 @@ int main( int argc, char **argv ) {
 
 		return EXIT_SUCCESS;
 	} else if ( !strcmp( argv[1], "p8" ) ) {
-		for ( s = 0xFF; s; s-- ) {
+		for ( s = 0; s < 256; s++ ) {
 			/*	V = 0	*/
 			if ( (rv = p8( 0, s )) != 0 ) {
 				(void) fprintf( stderr,
@@ -125,7 +128,7 @@ int main( int argc, char **argv ) {
 			}
 
 			/*	range issues	*/
-			for ( v = 0xFF; v; v-- ) {
+			for ( v = 0; v < 256; v++ ) {
 				rv = p8( s, v );
 				if ( rv < 0 || rv > 255 ) {
 					(void) fprintf( stderr,
@@ -136,7 +139,7 @@ int main( int argc, char **argv ) {
 			}
 		}
 
-		for ( v = 0xFF; v; v-- ) {
+		for ( v = 0; v < 256; v++ ) {
 			/*	S = 0	*/
 			if ( (rv = p8( v, 0 )) != v ) {
 				(void) fprintf( stderr,
@@ -156,14 +159,59 @@ int main( int argc, char **argv ) {
 
 		return EXIT_SUCCESS;
 	} else if ( !strcmp( argv[1], "q8" ) ) {
-		for ( v = 255; v; v-- ) {
-			for ( s = 255; s; s-- ) {
-				for ( f = 255; f; f-- ) {
+		for ( v = 0; v < 256; v++ ) {
+			for ( s = 0; s < 256; s++ ) {
+				for ( f = 0; f < 256; f++ ) {
 					rv = q8( v, s, f );
 					if ( rv < 0 || rv > 255 ) {
 						(void) fprintf( stderr,
-								"p( V = %u, S = %u, f = %u ) failed with %i on line %u!\n",
+								"q( V = %u, S = %u, f = %u ) failed with %i on line %u!\n",
 								v, s, f, rv, __LINE__ - 4 );
+						return EXIT_FAILURE;
+					}
+				}
+			}
+		}
+		return EXIT_SUCCESS;
+	} else if ( !strcmp( argv[1], "t8" ) ) {
+		for ( v = 0; v < 256; v++ ) {
+			for ( s = 0; s < 256; s++ ) {
+				for ( f = 0; f < 256; f++ ) {
+					rv = t8( v, s, f );
+					if ( rv < 0 || rv > 255 ) {
+						(void) fprintf( stderr,
+								"t( V = %u, S = %u, f = %u ) failed with %i on line %u!\n",
+								v, s, f, rv, __LINE__ - 4 );
+						return EXIT_FAILURE;
+					}
+				}
+			}
+		}
+		return EXIT_SUCCESS;
+	} else if ( !strcmp( argv[1], "rgb" ) ) {
+		for ( h = 0; h < 256; h++ ) {
+			for ( s = 0; s < 256; s++ ) {
+				for ( v = 0; v < 256; v++ ) {
+					rgb( h, s, v, &r, &g, &b );
+					line = __LINE__ - 1;
+//					printf( "h = %u, s = %u, v = %u -- "
+//							"r = %u, g = %u, b = %u\n",
+//							h, s, v, r, g, b );
+					if ( v == 0 && ( r != 0 || g != 0 || b != 0 ) ) {
+						(void) fprintf( stderr,
+								"rgb( H = %u, S = %u, V = %u ) failed "
+								"with R = %u, G = %u, B = %u on line %u!\n",
+								h, s, v, r, g, b, line );
+						return EXIT_FAILURE;
+					}
+					if ( s == 0 && ( r != g || r != b || g != b ) ) {
+//						printf( "h = %u, s = %u, v = %u -- "
+//								"r = %u, g = %u, b = %u\n",
+//								h, s, v, r, g, b );
+						(void) fprintf( stderr,
+								"rgb( H = %u, S = %u, V = %u ) failed "
+								"with R = %u, G = %u, B = %u on line %u!\n",
+								h, s, v, r, g, b, line );
 						return EXIT_FAILURE;
 					}
 				}

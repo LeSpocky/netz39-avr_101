@@ -26,6 +26,7 @@
 #include "hsv2rgb.h"
 
 #include <stdint.h>
+#include <stdlib.h>
 
 const uint8_t buckets_8[6] = { 0, 43, 86, 128, 171, 214 };
 const uint16_t buckets_10[6] = { 0, 171, 342, 512, 683, 854 };
@@ -72,6 +73,23 @@ int16_t q8( uint8_t v, uint8_t s, uint8_t f ) {
 	uint16_t _v = v, _s = s, _f = f;
 
 	return (int16_t) (_v * ( 255 - ( ( _s * _f ) / 255 ) ) / 255);
+}
+
+void rgb( uint8_t h, uint8_t s, uint8_t v,
+		uint8_t *r, uint8_t *g, uint8_t *b )
+{
+//	*r = rand();
+//	*g = rand();
+//	*b = rand();
+	*r = 1;
+	*g = 1;
+	*b = 1;
+}
+
+int16_t t8( uint8_t v, uint8_t s, uint8_t f ) {
+	uint16_t _v = v, _s = s, _f = f;
+
+	return (int16_t) (_v * ( 255 - ( ( _s * (255 - _f) ) / 255 ) ) / 255);
 }
 
 /* vim: set noet sts=0 ts=4 sw=4 sr: */

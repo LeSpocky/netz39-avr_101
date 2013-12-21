@@ -61,6 +61,14 @@ int16_t p8( uint8_t v, uint8_t s );
  */
 int16_t q8( uint8_t v, uint8_t s, uint8_t f );
 
+void rgb( uint8_t h, uint8_t s, uint8_t v,
+		uint8_t *r, uint8_t *g, uint8_t *b );
+
+/**
+ *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
+ */
+int16_t t8( uint8_t v, uint8_t s, uint8_t f );
+
 #endif /* _HSV2RGB_H_ */
 
 /* vim: set noet sts=0 ts=4 sw=4 sr: */

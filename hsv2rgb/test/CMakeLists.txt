@@ -22,3 +22,11 @@ add_test(NAME p8
 # q8
 add_test(NAME q8
     COMMAND test_hsv2rgb q8)
+
+# t8
+add_test(NAME t8
+    COMMAND test_hsv2rgb t8)
+
+# rgb
+add_test(NAME rgb
+    COMMAND test_hsv2rgb rgb)
