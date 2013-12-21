@@ -29,6 +29,13 @@
 
 const uint8_t buckets_8[6] = { 0, 43, 86, 128, 171, 214 };
 const uint16_t buckets_10[6] = { 0, 171, 342, 512, 683, 854 };
+uint8_t bsize_8[6];
+
+int16_t f8( uint8_t h ) {
+	uint8_t hi = hi8( h );
+
+	return (uint16_t) (h - buckets_8[hi]) * 255 / (bsize_8[hi] - 1);
+}
 
 int16_t hi8( uint8_t h ) {
 	if ( h < buckets_8[3] ) {

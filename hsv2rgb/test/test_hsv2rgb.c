@@ -29,7 +29,7 @@
 #include "hsv2rgb.h"
 
 int main( int argc, char **argv ) {
-	uint8_t		bsize_8[6], h, s, v;
+	uint8_t		h, s, v;
 	int16_t		rv;
 	uint32_t	line;
 	int			lpc;
@@ -54,7 +54,33 @@ int main( int argc, char **argv ) {
 #endif
 
 	/*	dispatch	*/
-	if ( !strcmp( argv[1], "hi8" ) ) {
+	if ( !strcmp( argv[1], "f" ) ) {
+		for ( h = 255; h; h-- ) {
+			rv = f8( h );
+			line = __LINE__ - 1;
+			if ( (rv < 0) || (rv > 255)
+					|| (h == 0 && rv != 0)
+					|| (h == 42 && rv != 255)
+					|| (h == 43 && rv != 0)
+					|| (h == 85 && rv != 255)
+					|| (h == 86 && rv != 0)
+					|| (h == 127 && rv != 255)
+					|| (h == 128 && rv != 0)
+					|| (h == 170 && rv != 255)
+					|| (h == 171 && rv != 0)
+					|| (h == 213 && rv != 255)
+					|| (h == 214 && rv != 0)
+					|| (h == 255 && rv != 255) )
+			{
+				(void) fprintf( stderr,
+						"f( %u ) failed with %i on line %u!\n",
+						h, rv, line );
+				return EXIT_FAILURE;
+			}
+		}
+
+		return EXIT_SUCCESS;
+	} else if ( !strcmp( argv[1], "hi8" ) ) {
 		for ( h = 255; h; h-- ) {
 			rv = hi8( h );
 			line = __LINE__ - 1;

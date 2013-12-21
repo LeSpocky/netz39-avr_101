@@ -13,6 +13,8 @@ mapped to [0,255]. However for color hue (H) we project the circle
 [0°,360°) to [0,256) so 0 is not equivalent to 255 but we get in fact
 all colors and don't have to fiddle with the 0 and 360 equivalent.
 
+The algorithm is based on https://de.wikipedia.org/wiki/HSV-Farbraum
+
 You can not take it as is and put it onto your uC, however this projects
 includes thorough tests to ensure the algorithm produces the right
 output. For a uC you would extract the needed parts and not put

@@ -7,6 +7,10 @@ add_executable(test_hsv2rgb
     "test_hsv2rgb.c"
 )
 
+# f
+add_test(NAME f
+    COMMAND test_hsv2rgb f)
+
 # hi8
 add_test(NAME hi8
     COMMAND test_hsv2rgb hi8)

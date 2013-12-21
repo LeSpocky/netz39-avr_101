@@ -30,6 +30,12 @@
 
 const uint8_t buckets_8[6];
 const uint16_t buckets_10[6];
+uint8_t bsize_8[6];
+
+/**
+ *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
+ */
+int16_t f8( uint8_t h );
 
 /**
  *	@note	Do not return 6 for full H, but 0 instead.
