@@ -29,7 +29,7 @@
 #include "hsv2rgb.h"
 
 int main( int argc, char **argv ) {
-	uint8_t		h, s, v;
+	uint8_t		f, h, s, v;
 	int16_t		rv;
 	uint32_t	line;
 	int			lpc;
@@ -154,6 +154,21 @@ int main( int argc, char **argv ) {
 			}
 		}
 
+		return EXIT_SUCCESS;
+	} else if ( !strcmp( argv[1], "q8" ) ) {
+		for ( v = 255; v; v-- ) {
+			for ( s = 255; s; s-- ) {
+				for ( f = 255; f; f-- ) {
+					rv = q8( v, s, f );
+					if ( rv < 0 || rv > 255 ) {
+						(void) fprintf( stderr,
+								"p( V = %u, S = %u, f = %u ) failed with %i on line %u!\n",
+								v, s, f, rv, __LINE__ - 4 );
+						return EXIT_FAILURE;
+					}
+				}
+			}
+		}
 		return EXIT_SUCCESS;
 	} else {
 		(void) fprintf( stderr, "command not recognized!\n" );

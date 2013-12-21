@@ -18,3 +18,7 @@ add_test(NAME hi8
 # p8
 add_test(NAME p8
     COMMAND test_hsv2rgb p8)
+
+# q8
+add_test(NAME q8
+    COMMAND test_hsv2rgb q8)

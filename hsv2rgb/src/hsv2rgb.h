@@ -56,6 +56,11 @@ int16_t hi10( uint16_t h );
  */
 int16_t p8( uint8_t v, uint8_t s );
 
+/**
+ *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
+ */
+int16_t q8( uint8_t v, uint8_t s, uint8_t f );
+
 #endif /* _HSV2RGB_H_ */
 
 /* vim: set noet sts=0 ts=4 sw=4 sr: */

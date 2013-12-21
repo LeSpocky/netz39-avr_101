@@ -68,4 +68,8 @@ int16_t p8( uint8_t v, uint8_t s ) {
 	return (int16_t) ( _v * ( 255 - _s ) / 255 );
 }
 
+int16_t q8( uint8_t v, uint8_t s, uint8_t f ) {
+	return -1;
+}
+
 /* vim: set noet sts=0 ts=4 sw=4 sr: */
