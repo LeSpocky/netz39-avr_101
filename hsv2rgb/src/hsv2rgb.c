@@ -78,12 +78,46 @@ int16_t q8( uint8_t v, uint8_t s, uint8_t f ) {
 void rgb( uint8_t h, uint8_t s, uint8_t v,
 		uint8_t *r, uint8_t *g, uint8_t *b )
 {
-//	*r = rand();
-//	*g = rand();
-//	*b = rand();
-	*r = 1;
-	*g = 1;
-	*b = 1;
+	uint8_t f, hi;
+
+	hi = hi8( h );
+	f = f8( hi );
+
+	switch ( hi ) {
+	case 0:
+		*r = v;
+		*g = t8( v, s, f );
+		*b = p8( v, s );
+		break;
+	case 1:
+		*r = q8( v, s, f );
+		*g = v;
+		*b = p8( v, s );
+		break;
+	case 2:
+		*r = p8( v, s );
+		*g = v;
+		*b = t8( v, s, f );
+		break;
+	case 3:
+		*r = p8( v, s );
+		*g = q8( v, s, f );
+		*b = v;
+		break;
+	case 4:
+		*r = t8( v, s, f );
+		*g = p8( v, s );
+		*b = v;
+		break;
+	case 5:
+		*r = v;
+		*g = p8( v, s );
+		*b = q8( v, s, f );
+		break;
+	default:
+		exit( EXIT_FAILURE );
+		break;
+	}
 }
 
 int16_t t8( uint8_t v, uint8_t s, uint8_t f ) {

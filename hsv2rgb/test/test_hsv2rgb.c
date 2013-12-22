@@ -193,27 +193,24 @@ int main( int argc, char **argv ) {
 			for ( s = 0; s < 256; s++ ) {
 				for ( v = 0; v < 256; v++ ) {
 					rgb( h, s, v, &r, &g, &b );
-					line = __LINE__ - 1;
-//					printf( "h = %u, s = %u, v = %u -- "
-//							"r = %u, g = %u, b = %u\n",
-//							h, s, v, r, g, b );
+
 					if ( v == 0 && ( r != 0 || g != 0 || b != 0 ) ) {
-						(void) fprintf( stderr,
-								"rgb( H = %u, S = %u, V = %u ) failed "
-								"with R = %u, G = %u, B = %u on line %u!\n",
-								h, s, v, r, g, b, line );
-						return EXIT_FAILURE;
+						line = __LINE__ - 1;
+						goto fail_rgb;
 					}
+
 					if ( s == 0 && ( r != g || r != b || g != b ) ) {
-//						printf( "h = %u, s = %u, v = %u -- "
-//								"r = %u, g = %u, b = %u\n",
-//								h, s, v, r, g, b );
-						(void) fprintf( stderr,
-								"rgb( H = %u, S = %u, V = %u ) failed "
-								"with R = %u, G = %u, B = %u on line %u!\n",
-								h, s, v, r, g, b, line );
-						return EXIT_FAILURE;
+						line = __LINE__ - 1;
+						goto fail_rgb;
 					}
+
+					continue;
+fail_rgb:
+					(void) fprintf( stderr,
+							"rgb( H = %u, S = %u, V = %u ) failed "
+							"with R = %u, G = %u, B = %u on line %u!\n",
+							h, s, v, r, g, b, line );
+					return EXIT_FAILURE;
 				}
 			}
 		}
