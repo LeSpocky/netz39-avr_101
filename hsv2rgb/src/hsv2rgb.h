@@ -52,6 +52,11 @@ int16_t hi8( uint8_t h );
 int16_t hi10( uint16_t h );
 
 /**
+ *	precalculates bucket sizes
+ */
+void init_hsv2rgb( void );
+
+/**
  *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
  */
 int16_t p8( uint8_t v, uint8_t s );

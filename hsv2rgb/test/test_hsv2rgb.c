@@ -34,7 +34,6 @@ int main( int argc, char **argv ) {
 	uint8_t		r, g, b;
 	int16_t		rv;
 	uint32_t	line;
-	int			lpc;
 
 	/*	check parameters	*/
 	if ( argc != 2 ) {
@@ -44,17 +43,7 @@ int main( int argc, char **argv ) {
 
 	/*	init	*/
 	srand( time( NULL ) );
-	for ( lpc = 0; lpc < 5; lpc++ ) {
-		bsize_8[lpc] = buckets_8[lpc+1] - buckets_8[lpc];
-	}
-	bsize_8[5] = 256 - buckets_8[5];
-#ifndef NDEBUG
-	(void) printf( "bsize_8:" );
-	for ( lpc = 0; lpc < 6; lpc++ ) {
-		(void) printf( " %u", bsize_8[lpc] );
-	}
-	(void) printf( "\n" );
-#endif
+	init_hsv2rgb();
 
 	/*	dispatch	*/
 	if ( !strcmp( argv[1], "f" ) ) {
