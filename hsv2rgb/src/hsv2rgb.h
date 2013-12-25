@@ -28,9 +28,9 @@
 
 #include <stdint.h>
 
-const uint8_t buckets_8[6];
-const uint16_t buckets_10[6];
-uint8_t bsize_8[6];
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
@@ -73,6 +73,10 @@ void rgb( uint8_t h, uint8_t s, uint8_t v,
  *	@see	https://de.wikipedia.org/wiki/HSV-Farbraum
  */
 int16_t t8( uint8_t v, uint8_t s, uint8_t f );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _HSV2RGB_H_ */
 
