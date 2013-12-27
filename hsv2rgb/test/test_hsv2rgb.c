@@ -46,10 +46,13 @@ int main( int argc, char **argv ) {
 	init_hsv2rgb();
 
 	/*	dispatch	*/
-	if ( !strcmp( argv[1], "f" ) ) {
+	if ( !strcmp( argv[1], "f8" ) ) {
 		for ( h = 0; h < 256; h++ ) {
 			rv = f8( h );
 			line = __LINE__ - 1;
+#ifndef NDEBUG
+			(void) printf( "f( %u ) returned %i.\n", h, rv );
+#endif
 			if ( (rv < 0) || (rv > 255)
 					|| (h == 0 && rv != 0)
 					|| (h == 42 && rv != 255)
@@ -76,6 +79,9 @@ int main( int argc, char **argv ) {
 		for ( h = 0; h < 256; h++ ) {
 			rv = hi8( h );
 			line = __LINE__ - 1;
+#ifndef NDEBUG
+			(void) printf( "hi( %u ) returned %i.\n", h, rv );
+#endif
 			if ( (rv < 0) || (rv > 5)
 					|| (h == 0 && rv != 0)
 					|| (h == 42 && rv != 0)

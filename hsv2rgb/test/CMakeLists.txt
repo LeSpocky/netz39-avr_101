@@ -8,8 +8,8 @@ add_executable(test_hsv2rgb
 )
 
 # f
-add_test(NAME f
-    COMMAND test_hsv2rgb f)
+add_test(NAME f8
+    COMMAND test_hsv2rgb f8)
 
 # hi8
 add_test(NAME hi8
