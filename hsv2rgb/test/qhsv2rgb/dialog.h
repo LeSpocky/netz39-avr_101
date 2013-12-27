@@ -16,9 +16,13 @@ public:
     ~Dialog();
     
 private slots:
+    void on_horizontalSlider_H_valueChanged(int value);
+    void on_horizontalSlider_S_valueChanged(int value);
+    void on_horizontalSlider_V_valueChanged(int value);
 
 private:
     Ui::Dialog *ui;
+    void updateUi( void );
 };
 
 #endif // DIALOG_H

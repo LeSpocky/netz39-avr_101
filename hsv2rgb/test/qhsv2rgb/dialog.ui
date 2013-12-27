@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
+    <width>551</width>
     <height>251</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>160</y>
-     <width>451</width>
+     <width>531</width>
      <height>81</height>
     </rect>
    </property>
@@ -32,7 +32,7 @@
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>450</x>
      <y>10</y>
      <width>91</width>
      <height>141</height>
@@ -131,7 +131,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>351</width>
+     <width>431</width>
      <height>141</height>
     </rect>
    </property>
@@ -157,6 +157,12 @@
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>50</number>
       </property>
      </widget>
     </item>
@@ -188,6 +194,12 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>50</number>
+      </property>
      </widget>
     </item>
     <item row="2" column="1">
@@ -217,6 +229,12 @@
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>50</number>
       </property>
      </widget>
     </item>
