@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <QPixmap>
 
 namespace Ui {
 class Dialog;
@@ -16,13 +17,11 @@ public:
     ~Dialog();
     
 private slots:
-    void on_horizontalSlider_H_valueChanged(int value);
-    void on_horizontalSlider_S_valueChanged(int value);
-    void on_horizontalSlider_V_valueChanged(int value);
+    void updateUi( int value );
 
 private:
     Ui::Dialog *ui;
-    void updateUi( void );
+    QPixmap *pixmap;
 };
 
 #endif // DIALOG_H

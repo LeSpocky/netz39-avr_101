@@ -3,6 +3,9 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 
+#include <QColor>
+#include <QObject>
+
 #include "hsv2rgb.h"
 
 Dialog::Dialog(QWidget *parent) :
@@ -10,17 +13,26 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+    QObject::connect( ui->horizontalSlider_H, SIGNAL(valueChanged(int)),
+                      this, SLOT(updateUi(int)) );
+    QObject::connect( ui->horizontalSlider_S, SIGNAL(valueChanged(int)),
+                      this, SLOT(updateUi(int)) );
+    QObject::connect( ui->horizontalSlider_V, SIGNAL(valueChanged(int)),
+                      this, SLOT(updateUi(int)) );
+    pixmap = new QPixmap( ui->label_color->width(), ui->label_color->height() );
 }
 
 Dialog::~Dialog()
 {
+    delete pixmap;
     delete ui;
 }
 
-void Dialog::updateUi( void ) {
+void Dialog::updateUi( int value ) {
     uint8_t r, g, b;
     int16_t f, hi, p, q, t;
     int h, s, v;
+    QColor color;
 
     /*  get slider values   */
     h = ui->horizontalSlider_H->value();
@@ -45,19 +57,9 @@ void Dialog::updateUi( void ) {
     ui->lcdNumber_R->display( r );
     ui->lcdNumber_G->display( g );
     ui->lcdNumber_B->display( b );
-}
 
-void Dialog::on_horizontalSlider_H_valueChanged(int value)
-{
-    updateUi();
-}
-
-void Dialog::on_horizontalSlider_S_valueChanged(int value)
-{
-    updateUi();
-}
-
-void Dialog::on_horizontalSlider_V_valueChanged(int value)
-{
-    updateUi();
+    /*  update pixmap   */
+    color.setRgb( r, g, b );
+    pixmap->fill( color );
+    ui->label_color->setPixmap( *pixmap );
 }
