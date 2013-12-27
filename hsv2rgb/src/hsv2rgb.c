@@ -95,40 +95,44 @@ void rgb( uint8_t h, uint8_t s, uint8_t v,
 		uint8_t *r, uint8_t *g, uint8_t *b )
 {
 	uint8_t f, hi;
+    int16_t p, q, t;
 
 	hi = hi8( h );
-	f = f8( hi );
+    f = f8( h );
+    p = p8( v, s );
+    q = q8( v, s, f );
+    t = t8( v, s, f );
 
 	switch ( hi ) {
 	case 0:
 		*r = v;
-		*g = t8( v, s, f );
-		*b = p8( v, s );
-		break;
+        *g = t;
+        *b = p;
+        break;
 	case 1:
-		*r = q8( v, s, f );
+        *r = q;
 		*g = v;
-		*b = p8( v, s );
+        *b = p;
 		break;
 	case 2:
-		*r = p8( v, s );
+        *r = p;
 		*g = v;
-		*b = t8( v, s, f );
+        *b = t;
 		break;
 	case 3:
-		*r = p8( v, s );
-		*g = q8( v, s, f );
+        *r = p;
+        *g = q;
 		*b = v;
 		break;
 	case 4:
-		*r = t8( v, s, f );
-		*g = p8( v, s );
+        *r = t;
+        *g = p;
 		*b = v;
 		break;
 	case 5:
 		*r = v;
-		*g = p8( v, s );
-		*b = q8( v, s, f );
+        *g = p;
+        *b = q;
 		break;
 	default:
 		exit( EXIT_FAILURE );
