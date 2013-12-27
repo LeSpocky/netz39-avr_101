@@ -12,14 +12,22 @@ Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
+    init_hsv2rgb();
+
     ui->setupUi(this);
+
     QObject::connect( ui->horizontalSlider_H, SIGNAL(valueChanged(int)),
                       this, SLOT(updateUi(int)) );
     QObject::connect( ui->horizontalSlider_S, SIGNAL(valueChanged(int)),
                       this, SLOT(updateUi(int)) );
     QObject::connect( ui->horizontalSlider_V, SIGNAL(valueChanged(int)),
                       this, SLOT(updateUi(int)) );
+
     pixmap = new QPixmap( ui->label_color->width(), ui->label_color->height() );
+
+    ui->horizontalSlider_H->setValue( 127 );
+    ui->horizontalSlider_S->setValue( 127 );
+    ui->horizontalSlider_V->setValue( 127 );
 }
 
 Dialog::~Dialog()
