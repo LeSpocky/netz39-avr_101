@@ -1,1 +1,6 @@
-tags
+*.i
+*.map
+*.s
+*.elf
+*.hex
+*.o
