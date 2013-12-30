@@ -18,9 +18,9 @@ program: rgb.hex
 	avrdude -c $(PROGRAMMER) -P usb -p $(CPU_DUDE) -U flash:w:rgb.hex
 
 clean:
-	rm *.o *.elf *.hex
+	rm *.o *.elf *.hex *.map *.i *.s
 
 rgb.hex: rgb.c
-	avr-gcc $(CFLAGS) -c rgb.c -o rgb.o
-	avr-gcc $(CFLAGS) rgb.o -o rgb.elf
+	avr-gcc $(CFLAGS) -save-temps -fverbose-asm -c rgb.c -o rgb.o
+	avr-gcc $(CFLAGS) rgb.o -o rgb.elf -Wl,-Map,rgb.map
 	avr-objcopy -R .eeprom -O ihex rgb.elf rgb.hex
