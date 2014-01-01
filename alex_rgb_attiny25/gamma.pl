@@ -32,7 +32,11 @@ print "#define _GAMMA_H_\n\n";
 
 print "#include <stdint.h>\n\n";
 
-print "const uint8_t gammatbl[$tablesize] = {";
+if ( $pwmres > 256 ) {
+    print "const uint16_t gammatbl[$tablesize] = {";
+} else {
+    print "const uint8_t gammatbl[$tablesize] = {";
+}
 
 for ( my $lpc = 0; $lpc < $tablesize; $lpc++ ) {
     if ( !($lpc % 10) ) {
