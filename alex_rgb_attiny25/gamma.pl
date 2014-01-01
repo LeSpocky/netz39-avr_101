@@ -30,12 +30,13 @@ print " *  x was $x */\n\n";
 print "#ifndef _GAMMA_H_\n";
 print "#define _GAMMA_H_\n\n";
 
-print "#include <stdint.h>\n\n";
+print "#include <stdint.h>\n";
+print "#include <avr/pgmspace.h>\n\n";
 
 if ( $pwmres > 256 ) {
-    print "const uint16_t gammatbl[$tablesize] = {";
+    print "const uint16_t gammatbl[$tablesize] PROGMEM = {";
 } else {
-    print "const uint8_t gammatbl[$tablesize] = {";
+    print "const uint8_t gammatbl[$tablesize] PROGMEM = {";
 }
 
 for ( my $lpc = 0; $lpc < $tablesize; $lpc++ ) {

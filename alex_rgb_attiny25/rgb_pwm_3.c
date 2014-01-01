@@ -108,18 +108,13 @@ ISR(TIMER0_OVF_vect) {
 
 /*  main    */
 int main (void) {
-    int i;
-
     init();
 
     /*  main loop   */
     while ( 1 ) {
-        /*  reduce 8-bit adc result to 32 step lookup table */
-        i = adc_result >> 3;
-
-        comp_buf_R = gammatbl[i];
-        comp_buf_G = gammatbl[i];
-        comp_buf_B = gammatbl[i];
+        comp_buf_R = pgm_read_word( &(gammatbl[adc_result]) );
+        comp_buf_G = pgm_read_word( &(gammatbl[adc_result]) );
+        comp_buf_B = pgm_read_word( &(gammatbl[adc_result]) );
     }
 
     return 0;
