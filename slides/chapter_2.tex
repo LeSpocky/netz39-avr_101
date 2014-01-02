@@ -1,0 +1,198 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% documentclass and packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{atbegshi}           % workaround for newer PGF versions
+\documentclass{beamer}
+% https://sourceforge.net/tracker/index.php?func=detail&aid=1848912&group_id=92412&atid=600660
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[ngerman]{babel}
+\usepackage[babel,english=american,german=guillemets]{csquotes}	% french
+\usepackage{microtype}
+
+% colors for listings
+\definecolor{lightergray}{gray}{.95}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkerblue}{rgb}{0,0,0.4}
+\definecolor{darkergreen}{rgb}{0,0.4,0}
+\definecolor{darkerred}{rgb}{0.4,0,0}
+
+\usepackage{listings}
+\lstloadlanguages{C}
+\lstset{
+    basicstyle=\ttfamily\small\mdseries,
+    keywordstyle=\bfseries\color{darkblue},
+    identifierstyle=,
+    commentstyle=\color{darkgray},
+    stringstyle=\itshape\color{darkred},
+    frame=none,
+    showstringspaces=false,
+    tabsize=4,
+    backgroundcolor=\color{lightergray},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% preparations for beamer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useinnertheme{default}
+\useoutertheme{infolines}
+%\usecolortheme[rgb={0.28,0.37,0.52}]{structure}
+\usecolortheme[rgb={0.18,0.23,0.33}]{structure}
+%\usecolortheme{beaver}
+\usefonttheme{structurebold}
+
+%%% Ränder vergrößern für's Café Central
+\setbeamersize{text margin left=1.2cm}
+\setbeamersize{text margin right=1.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfdeclareimage[height=0.7\paperheight]{avrdip}{avr_dip}
+\pgfdeclareimage[height=0.7\paperheight]{breadboard}{breadboard}
+\pgfdeclareimage[height=0.3\paperheight]{skbottom}{starterkit_bottom}
+\pgfdeclareimage[height=0.3\paperheight]{sktop}{starterkit_top}
+\pgfdeclareimage[height=0.5\paperheight]{skparts}{starterkit_parts}
+\pgfdeclareimage[height=0.3\paperheight]{skpcbs}{starterkit_pcbs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% title, author, date
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{AVR101}
+\subtitle{Chapter 2 -- Bright LEDs, and Less Bright LEDs}
+\author{Netz39 e.\,V.}
+\institute{\url{http://www.netz39.de/}}
+\date{2014}
+\subject{subj}
+\keywords{AVR, Workshop, LED, PWM, ISR, Timer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+
+\section{LED Fading}
+
+\subsection{LED Basics}
+
+\begin{frame}{LED Characteristic}
+    Vielleicht von derjenigen LED auf dem Starterkit …
+\end{frame}
+
+\begin{frame}{LED Circuit}
+    Schaltung mit Vorwiderstand so wie beim Starterkit …
+\end{frame}
+
+\subsection{PWM}
+
+\begin{frame}{PWM Basics}
+    In der c't war grad ein gutes Bild drin, an das man sich anlehnen könnte
+\end{frame}
+
+\begin{frame}{PWM with AVR}
+    Kurz die Hardware-PWM vorstellen und erklären, warum wir die nicht benutzen können
+\end{frame}
+
+\begin{frame}{Quick and dirty PWM}
+    Einfach in der Hauptschleife …
+\end{frame}
+
+\section{Timer and ISR}
+
+\subsection{Timer}
+
+\begin{frame}{Timer Basics}
+    Puh, was ist denn dazu zu sagen?
+\end{frame}
+
+\begin{frame}{Soft PWM with Timer}
+    Show some registers and how we want to do it …
+\end{frame}
+
+\subsection{ISR}
+
+\begin{frame}{ISR Basics}
+    What's an interrupt service routine in general?
+\end{frame}
+
+\begin{frame}{Our Timer ISR}
+    Spoiler alert!
+\end{frame}
+
+\subsection{Looks not Just Right}
+
+\begin{frame}{Human Perceiving and Gamma}
+    For Science!
+\end{frame}
+
+\begin{frame}{Trade Size for Speed}
+    Lookup Table FTW!
+\end{frame}
+
+\begin{frame}{Three Lines Only}
+    Show how simple it was …
+\end{frame}
+
+\subsection{Old Slides}
+
+\begin{frame}{Pulse Width Modulation}
+    \begin{itemize}
+        \item on on on on off off on on on on
+        \pause
+        \item \emph{add nice plot here, TikZ anyone?}
+        \pause
+        \item not linear with perceived LED brightness
+        \item don't fear pre calculated logarithmic lookup tables
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Timers}
+    \begin{itemize}
+        \item count up or down
+        \item count to a certain value
+        \item count endlessly till overflow
+        \item count external events
+        \pause
+        \item you really need the micro controller documentation!
+    \end{itemize}
+\end{frame}
+
+\section{Contact}
+
+\begin{frame}{Contact}
+    \begin{center}
+        \begin{description}[Twitter/identi.ca]
+            \item[WWW] \url{http://www.netz39.de/}
+            \item[Twitter/identi.ca] @netz39
+            \item[E-Mail] kontakt@netz39.de
+            \item[Mailingliste] list@netz39.de
+            \item[IRC] \#netz39 on freenode
+        \end{description}
+    \end{center}
+\end{frame}
+
+\appendix
+
+\section{License}
+
+\begin{frame}{License}
+    \begin{block}{Slides and Pictures}
+        This work is licensed under a \emph{Creative Commons
+        Attribution-ShareAlike 3.0 Unported License}, (CC-BY-SA 3.0).
+        Source at: \url{https://github.com/netz39/avr_101}
+    \end{block}
+\end{frame}
+
+\end{document}
