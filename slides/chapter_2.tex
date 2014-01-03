@@ -52,12 +52,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% images
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pgfdeclareimage[height=0.7\paperheight]{avrdip}{avr_dip}
-\pgfdeclareimage[height=0.7\paperheight]{breadboard}{breadboard}
-\pgfdeclareimage[height=0.3\paperheight]{skbottom}{starterkit_bottom}
-\pgfdeclareimage[height=0.3\paperheight]{sktop}{starterkit_top}
-\pgfdeclareimage[height=0.5\paperheight]{skparts}{starterkit_parts}
-\pgfdeclareimage[height=0.3\paperheight]{skpcbs}{starterkit_pcbs}
+\pgfdeclareimage[height=0.7\paperheight]{durchlassstromgrbl}{durchlassstrom_gr-bl}
+\pgfdeclareimage[height=0.7\paperheight]{durchlassstromrot}{durchlassstrom_rot}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% title, author, date
@@ -87,8 +83,19 @@
 
 \subsection{LED Basics}
 
-\begin{frame}{LED Characteristic}
-    Vielleicht von derjenigen LED auf dem Starterkit …
+\begin{frame}{LED Characteristic LRTB G6TG}
+    \begin{columns}                                                        
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \pgfuseimage{durchlassstromrot}
+            \end{figure}
+        \end{column}                                                       
+        \begin{column}{0.5\textwidth}
+            \begin{figure}                                                 
+                \pgfuseimage{durchlassstromgrbl}
+            \end{figure}                                                   
+        \end{column}                                                       
+    \end{columns}                      
 \end{frame}
 
 \begin{frame}{LED Circuit}
