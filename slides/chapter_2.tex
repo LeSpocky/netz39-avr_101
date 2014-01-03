@@ -12,6 +12,9 @@
 \usepackage[babel,english=american,german=guillemets]{csquotes}	% french
 \usepackage{microtype}
 
+\usepackage[european]{circuitikz}
+\usepackage{siunitx}
+
 % colors for listings
 \definecolor{lightergray}{gray}{.95}
 \definecolor{darkblue}{rgb}{0,0,0.5}
@@ -84,22 +87,38 @@
 \subsection{LED Basics}
 
 \begin{frame}{LED Characteristic LRTB G6TG}
-    \begin{columns}                                                        
+    \begin{columns}
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \pgfuseimage{durchlassstromrot}
             \end{figure}
-        \end{column}                                                       
+        \end{column}
         \begin{column}{0.5\textwidth}
-            \begin{figure}                                                 
+            \begin{figure}
                 \pgfuseimage{durchlassstromgrbl}
-            \end{figure}                                                   
-        \end{column}                                                       
-    \end{columns}                      
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{LED Circuit}
-    Schaltung mit Vorwiderstand so wie beim Starterkit …
+    \begin{columns}
+        \begin{column}{0.7\textwidth}
+            \begin{circuitikz} \draw
+                (0,0) to [ V, v<=$\SI{5}{\volt}$ ] (0,2)
+                (0,2) to [ R, l=$R_V$, i>=$\SI{20}{\milli\ampere}$ ] (4,2)
+                (4,2) to [ leD, v^>=$U_D$ ] (4,0)
+                (4,0) to [ short ] (0,0)
+                (2,0) node [ circ ] {}
+                (2,0) node [ ground ] {}
+                ;
+            \end{circuitikz}
+        \end{column}
+        \pause
+        \begin{column}{0.3\textwidth}
+            $R_V = \frac{U_{ges} - U_D}{I}$
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \subsection{PWM}
