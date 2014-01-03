@@ -54,7 +54,7 @@
 
 /*  globals */
 volatile uint8_t adc_result;
-volatile uint8_t comp_buf_R, comp_buf_G, comp_buf_B;
+volatile uint16_t comp_buf_R, comp_buf_G, comp_buf_B;
 
 /*  declaration */
 void init( void );
@@ -67,10 +67,10 @@ ISR(ADC_vect) {
 ISR(TIMER0_OVF_vect) {
     static uint8_t  pin_level = ( INVERTED_LED ? 0 : PORT_MASK );
     static uint8_t  led_status = 0;
-    static uint8_t  comp_R, comp_G, comp_B;
-    static uint8_t  soft_cnt_R = 0xFF;
-    static uint8_t  soft_cnt_G = 0xFF - 85;
-    static uint8_t  soft_cnt_B = 0xFF - 170;
+    static uint16_t  comp_R, comp_G, comp_B;
+    static uint16_t  soft_cnt_R = 0x03FF;
+    static uint16_t  soft_cnt_G = 0x03FF - 341;
+    static uint16_t  soft_cnt_B = 0x03FF - 682;
 
     /*  set new pin level first for low jitter and do calculation
      *  afterwards  */
@@ -78,15 +78,21 @@ ISR(TIMER0_OVF_vect) {
 
     /*  increment counter and if overflow update compare value from
      *  main loop buffer and set LED on */
-    if ( ++soft_cnt_R == 0 ) {
+    soft_cnt_R++;
+    soft_cnt_R &= 0x03FF;
+    if ( soft_cnt_R == 0 ) {
         comp_R = comp_buf_R;
         led_status |= PORT_RD;
     }
-    if ( ++soft_cnt_G == 0 ) {
+    soft_cnt_G++;
+    soft_cnt_G &= 0x03FF;
+    if ( soft_cnt_G == 0 ) {
         comp_G = comp_buf_G;
         led_status |= PORT_GN;
     }
-    if ( ++soft_cnt_B == 0 ) {
+    soft_cnt_B++;
+    soft_cnt_B &= 0x03FF;
+    if ( soft_cnt_B == 0 ) {
         comp_B = comp_buf_B;
         led_status |= PORT_BL;
     }
@@ -108,18 +114,13 @@ ISR(TIMER0_OVF_vect) {
 
 /*  main    */
 int main (void) {
-    int i;
-
     init();
 
     /*  main loop   */
     while ( 1 ) {
-        /*  reduce 8-bit adc result to 32 step lookup table */
-        i = adc_result >> 3;
-
-        comp_buf_R = gammatbl[i];
-        comp_buf_G = gammatbl[i];
-        comp_buf_B = gammatbl[i];
+        comp_buf_R = pgm_read_word( &(gammatbl[adc_result]) );
+        comp_buf_G = pgm_read_word( &(gammatbl[adc_result]) );
+        comp_buf_B = pgm_read_word( &(gammatbl[adc_result]) );
     }
 
     return 0;
