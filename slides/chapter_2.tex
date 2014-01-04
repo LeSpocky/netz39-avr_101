@@ -158,11 +158,62 @@
 \end{frame}
 
 \begin{frame}{PWM with AVR}
-    Kurz die Hardware-PWM vorstellen und erklären, warum wir die nicht benutzen können
+    \begin{block}{Peripheral Features (from datasheet)}
+        \begin{quote}
+            \begin{itemize}
+                \item 8-bit Timer/Counter with Prescaler and Two PWM Channels
+                \item 8-bit High Speed Timer/Counter with Separate Prescaler
+                    \begin{itemize}
+                        \item 2 High Frequency PWM Outputs with Separate Output Compare Registers
+                        \item Programmable Dead Time Generator
+                    \end{itemize}
+            \end{itemize}
+        \end{quote}
+    \end{block}
+    \pause
+    \begin{block}{Warum nicht?}
+        \begin{itemize}
+            \item drei Kanäle nötig für RGB
+            \item zwei verschiedene PWM-Bausteine mit je zwei Kanälen
+            \item Pins passen nicht gut auf unser Layout
+            \item wir brauchen die Timer-Bausteine später noch
+        \end{itemize}
+    \end{block}
 \end{frame}
 
-\begin{frame}{Quick and dirty PWM}
-    Einfach in der Hauptschleife …
+\begin{frame}[fragile]{Quick and Dirty Software PWM}
+    \begin{lstlisting}[
+        language=C,
+        basicstyle=\ttfamily\scriptsize\mdseries,
+    ]
+#include <stdint.h>
+#include <avr/io.h>
+#include <util/delay.h>
+#define PORT_RD     (1 << PORTB3)
+
+int main (void) {
+    uint8_t pwm_count = 0, pwm_should = 0, pwm_phase = 0;
+    DDRB = (1 << DDB3) | (1 << DDB1) | (1 << DDB4);
+
+    while ( 1 ) {
+        if ( pwm_should == pwm_phase ) {
+            PORTB &= ~PORT_RD;
+        }
+
+        pwm_phase++;
+        if ( pwm_phase == 0 ) {
+            PORTB |= PORT_RD;
+
+            pwm_count++;
+            if ( pwm_count == 0 ) {
+                pwm_should++;
+            }
+        }
+    }
+
+    return 0;
+}
+    \end{lstlisting}
 \end{frame}
 
 \section{Timer and ISR}
