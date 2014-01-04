@@ -14,6 +14,7 @@
 
 \usepackage[european]{circuitikz}
 \usepackage[locale=DE]{siunitx}
+\usepackage{tikz-timing}
 
 % colors for listings
 \definecolor{lightergray}{gray}{.95}
@@ -131,7 +132,29 @@
 \subsection{PWM}
 
 \begin{frame}{PWM Basics}
-    In der c't war grad ein gutes Bild drin, an das man sich anlehnen könnte
+    \begin{block}{Timing}
+        \begin{tikztimingtable}[timing/rowdist = 2.5]
+            Clock       &   2{0.5C} 64{0.5C} 2{0.5C}    \\
+            0\,\% on    &   L 4{8L} L                   \\
+            25\,\% on   &   L 4{2H 6L} H                \\
+            50\,\% on   &   L 4{4H 4L} H                \\
+            87,5\,\% on &   L 4{7H 1L} H                \\
+            100\,\% on  &   H 4{8H}    H                \\
+        \extracode
+            \begin{pgfonlayer}{background}
+                \horlines[help lines]{}
+                \vertlines[help lines]{ 1, 9, 17, 25, 33 }
+            \end{pgfonlayer}
+        \end{tikztimingtable}
+    \end{block}
+    \pause
+    \begin{block}{Begriffe}
+        \begin{itemize}
+            \item Duty Cycle, Tastverhältnis
+            \item Auflösung
+            \item Frequenz
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \begin{frame}{PWM with AVR}
