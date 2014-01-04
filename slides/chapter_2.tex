@@ -13,7 +13,7 @@
 \usepackage{microtype}
 
 \usepackage[european]{circuitikz}
-\usepackage{siunitx}
+\usepackage[locale=DE]{siunitx}
 
 % colors for listings
 \definecolor{lightergray}{gray}{.95}
@@ -119,6 +119,13 @@
             $R_V = \frac{U_{ges} - U_D}{I}$
         \end{column}
     \end{columns}
+    \pause
+    \begin{itemize}
+        \item LEDs werden mit konstantem Strom betrieben
+        \item Vorwiderstand ist die simpelste Variante
+        \item Spannung über der LED hängt von der Farbe ab
+        \item hier: rot \SI{2.1}{\volt}, blau/grün \SI{3.2}{\volt}
+    \end{itemize}
 \end{frame}
 
 \subsection{PWM}
