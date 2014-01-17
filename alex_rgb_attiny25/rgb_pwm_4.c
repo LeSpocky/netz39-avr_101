@@ -185,7 +185,7 @@ void init( void ) {
 
     /*  set clock   */
     CLKPR = (1 << CLKPCE);  /*  enable clock prescaler update       */
-    CLKPR = 0;              /*  set clock to maximum                */
+    CLKPR = 0;              /*  set clock to maximum (8MHz default) */
 
     /*  set port pins to output and value 0 */
     DDRB = DIR_RD | DIR_GN | DIR_BL;
@@ -212,8 +212,6 @@ void init( void ) {
     /*  set prescaler in a way the ADC clock gets between 50khZ and
      *  200 kHz. using a prescaler of 128 here yields a value in this
      *  interval for both 8MHz and 16MHz clock. */
-    /*  TODO    check this for default 1 MHz or make dependent on cpu
-     *          clock speed!    */
     ADCSRA = (ADCSRA & ~MASK_ADPS) | (0x07 & MASK_ADPS);
 
     /*  use ADC free running mode   */
