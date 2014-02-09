@@ -187,6 +187,7 @@
     \begin{lstlisting}[
         language=C,
         basicstyle=\ttfamily\scriptsize\mdseries,
+        numbers=left,
     ]
 #include <stdint.h>
 #include <avr/io.h>
@@ -197,14 +198,12 @@ int main (void) {
     DDRB = (1 << DDB3) | (1 << DDB1) | (1 << DDB4);
 
     while ( 1 ) {
-        if ( pwm_should == pwm_phase ) {
+        if ( pwm_should == pwm_phase )
             PORTB &= ~PORT_RD;
-        }
 
         pwm_phase++;
         if ( pwm_phase == 0 ) {
             PORTB |= PORT_RD;
-
             pwm_count++;
             if ( pwm_count == 0 ) {
                 pwm_should++;
