@@ -1,3 +1,4 @@
 *.swp
 .directory
 .gitignore~
+*kdev4
